@@ -1,0 +1,68 @@
+﻿@model IEnumerable<LMS.Common.Models.Book>
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>Books Available</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookId)
+            </th>
+            <th>
+                Image
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookId)
+            </td>
+            <td>
+                <img src=@Html.DisplayFor(modelItem => item.ImageUrl) />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.ActionLink("CheckOut", "AddUserId", new { item.BookId })
+
+            </td>
+        </tr>
+            }
+    </tbody>
+
+</table>
+<p>
+
+    <input type="button" class="btn btn-info" value="View Your Books" onclick="location.href='@Url.Action("AddUserId", "User")'" />
+</p>
+

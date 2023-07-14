@@ -1,0 +1,74 @@
+﻿@model IEnumerable<LMS.Common.ViewModels.ViewBookWithDate>
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>Your Books</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DueDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookId)
+            </td>
+            <td>
+                <img src=@Html.DisplayFor(modelItem => item.ImageUrl) />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DueDate)
+            </td>
+
+            <td>
+                @Html.ActionLink("Return Book", "ReturnBook", new { item.BookId }, null)
+
+            </td>
+        </tr>
+            }
+
+
+    </tbody>
+
+</table>
+
+<input type="button" class="btn btn-info" value="Return To Books Available" onclick="location.href='@Url.Action("BooksForCheckout", "User")'" />

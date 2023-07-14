@@ -1,0 +1,93 @@
+﻿@model IEnumerable<LMS.Common.ViewModels.ViewBookAvailable>
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>Books Present</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookId)
+            </th>
+            <th>
+              Image
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsAvailable)
+            </th>
+            <th>
+                Change Availability
+            </th>
+            <th>
+                Add a Cover Photo
+            </th>
+        </tr>
+   
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookId)
+            </td>
+            <td>
+                <img src=@Html.DisplayFor(modelItem => item.ImageUrl) />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAvailable)
+            </td>
+            <td>
+                @Html.ActionLink("Change Availability", "ChangeAvailability", new { item.BookId }, null)
+
+            </td>
+            <td>
+                <form asp-action="AddCover" asp-controller="Admin" enctype="multipart/form-data" method="post">
+                    <div class="form-group" style="visibility: hidden;">
+                        <input id="bookId" name="bookId" value=@(Newtonsoft.Json.JsonConvert.SerializeObject(item.BookId)) class="form-control" required />
+                    </div>
+                    <input type="file" accept="image/x-png,image/jpeg" id="file" name="file" class="form-control" required />
+                    <br />
+                    <input type="submit" value="Upload/Change Book Cover" class="btn btn-info" />
+
+                </form>
+            </td>
+        </tr>
+            }
+    </tbody>
+    <p>
+        @Html.ActionLink("Add book", "AddBook")
+
+    </p>
+
+</table>
+<p>
+    <input type="button" class="btn btn-info" value="Return To Libraries" onclick="location.href='@Url.Action("LibraryView", "Admin")'" />
+</p>
